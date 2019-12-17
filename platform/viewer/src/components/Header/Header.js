@@ -1,10 +1,21 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import React, {
+  Component
+} from 'react';
+import {
+  Link,
+  withRouter
+} from 'react-router-dom';
+import {
+  withTranslation
+} from 'react-i18next';
 import PropTypes from 'prop-types';
 
 import ConnectedUserPreferencesForm from '../../connectedComponents/ConnectedUserPreferencesForm';
-import { Dropdown, AboutContent, withModal } from '@ohif/ui';
+import {
+  Dropdown,
+  AboutContent,
+  withModal
+} from '@ohif/ui';
 import OHIFLogo from '../OHIFLogo/OHIFLogo.js';
 import './Header.css';
 
@@ -30,7 +41,9 @@ class Header extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isOpen: false };
+    this.state = {
+      isOpen: false
+    };
 
     this.loadOptions();
   }
@@ -40,12 +53,15 @@ class Header extends Component {
       t,
       user,
       userManager,
-      modal: { show },
+      modal: {
+        show
+      },
     } = this.props;
-    this.options = [
-      {
+    this.options = [{
         title: t('About'),
-        icon: { name: 'info' },
+        icon: {
+          name: 'info'
+        },
         onClick: () =>
           show(AboutContent, {
             title: t('OHIF Viewer - About'),
@@ -66,7 +82,9 @@ class Header extends Component {
     if (user && userManager) {
       this.options.push({
         title: t('Logout'),
-        icon: { name: 'power-off' },
+        icon: {
+          name: 'power-off'
+        },
         onClick: () => userManager.signoutRedirect(),
       });
     }
@@ -74,47 +92,81 @@ class Header extends Component {
 
   // ANTD -- Hamburger, Drawer, Menu
   render() {
-    const { t, home, location, children } = this.props;
-    const { appConfig = {} } = this.context;
+    const {
+      t,
+      home,
+      location,
+      children
+    } = this.props;
+    const {
+      appConfig = {}
+    } = this.context;
     const showStudyList =
       appConfig.showStudyList !== undefined ? appConfig.showStudyList : true;
-    return (
-      <>
-        <div className="notification-bar">{t('INVESTIGATIONAL USE ONLY')}</div>
-        <div className={`entry-header ${home ? 'header-big' : ''}`}>
-          <div className="header-left-box">
-            {location && location.studyLink && (
-              <Link
-                to={location.studyLink}
-                className="header-btn header-viewerLink"
-              >
-                {t('Back to Viewer')}
-              </Link>
-            )}
+    return ( <
+      >
+      <
+      div className = "notification-bar" > {
+        t('')
+      } < /div> <
+      div className = {
+        `entry-header ${home ? 'header-big' : ''}`
+      } >
+      <
+      div className = "header-left-box" > {
+        location && location.studyLink && ( <
+          Link to = {
+            location.studyLink
+          }
+          className = "header-btn header-viewerLink" >
+          {
+            t('Back to Viewer')
+          } <
+          /Link>
+        )
+      }
 
-            {children}
+      {
+        children
+      }
 
-            {showStudyList && !home && (
-              <Link
-                className="header-btn header-studyListLinkSection"
-                to={{
-                  pathname: '/',
-                  state: { studyLink: location.pathname },
-                }}
-              >
-                {t('Study list')}
-              </Link>
-            )}
-          </div>
+      {
+        showStudyList && !home && ( <
+          Link className = "header-btn header-studyListLinkSection"
+          to = {
+            {
+              pathname: '/',
+              state: {
+                studyLink: location.pathname
+              },
+            }
+          } >
+          {
+            t('Study list')
+          } <
+          /Link>
+        )
+      } <
+      /div>
 
-          <div className="header-menu">
-            <span className="research-use">
-              {t('INVESTIGATIONAL USE ONLY')}
-            </span>
-            <Dropdown title={t('Options')} list={this.options} align="right" />
-          </div>
-        </div>
-      </>
+      <
+      div className = "header-menu" >
+      <
+      span className = "research-use" > {
+        t('INVESTIGATIONAL USE ONLY')
+      } <
+      /span> <
+      Dropdown title = {
+        t('Options')
+      }
+      list = {
+        this.options
+      }
+      align = "right" / >
+      <
+      /div> <
+      /div> <
+      />
     );
   }
 }

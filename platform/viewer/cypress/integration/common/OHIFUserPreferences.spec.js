@@ -1,5 +1,5 @@
 describe('OHIF User Preferences', () => {
-  context('Study List Page', function() {
+  context('Study List Page', function () {
     before(() => {
       cy.visit('/');
     });
@@ -10,7 +10,7 @@ describe('OHIF User Preferences', () => {
       cy.initPreferencesModalAliases();
     });
 
-    it('checks displayed information on User Preferences modal', function() {
+    it('checks displayed information on User Preferences modal', function () {
       cy.get('@preferencesModal').should('contain.text', 'User Preferences');
       cy.get('@userPreferencesHotkeysTab')
         .should('have.text', 'Hotkeys')
@@ -32,7 +32,7 @@ describe('OHIF User Preferences', () => {
       cy.get('[data-cy="close-button"]').click();
     });
 
-    it('checks translation by selecting Spanish language', function() {
+    it('checks translation by selecting Spanish language', function () {
       cy.get('@userPreferencesGeneralTab')
         .click()
         .should('have.class', 'active');
@@ -71,7 +71,7 @@ describe('OHIF User Preferences', () => {
       //   .should('have.text', 'Preferencias');
     });
 
-    it('checks if user can cancel the language selection and application will be in English', function() {
+    it('checks if user can cancel the language selection and application will be in English', function () {
       cy.get('@userPreferencesGeneralTab')
         .click()
         .should('have.class', 'active');
@@ -90,7 +90,7 @@ describe('OHIF User Preferences', () => {
       // // Header should be kept in English
       // cy.get('.research-use')
       //   .scrollIntoView()
-      //   .should('have.text', 'INVESTIGATIONAL USE ONLY');
+      //   .should('have.text', '');
       //
       // // Options menu should be translated
       // cy.get('[data-cy="options-menu"]').should('have.text', 'Options');
@@ -144,7 +144,7 @@ describe('OHIF User Preferences', () => {
     //     .should('have.text', 'Preferences');
     //  });
 
-    it('checks if Preferences set in Study List Page will be consistent on Viewer Page', function() {
+    it('checks if Preferences set in Study List Page will be consistent on Viewer Page', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab')
         .click()
@@ -197,12 +197,14 @@ describe('OHIF User Preferences', () => {
       //   .should('have.text', 'Preferencias');
 
       // Check if new hotkey is working on viewport
-      cy.get('body').type('{shift}Q', { release: false });
+      cy.get('body').type('{shift}Q', {
+        release: false
+      });
       cy.get('@viewportInfoMidTop').should('contains.text', 'R');
     });
   });
 
-  context('Study Viewer Page', function() {
+  context('Study Viewer Page', function () {
     before(() => {
       cy.openStudy('MISTER^MR');
       cy.expectMinimumThumbnails(5);
@@ -217,7 +219,7 @@ describe('OHIF User Preferences', () => {
       cy.openPreferences();
     });
 
-    it('checks displayed information on User Preferences modal', function() {
+    it('checks displayed information on User Preferences modal', function () {
       cy.get('@preferencesModal').should('contain.text', 'User Preferences');
       cy.get('@userPreferencesHotkeysTab')
         .should('have.text', 'Hotkeys')
@@ -239,7 +241,7 @@ describe('OHIF User Preferences', () => {
       cy.get('[data-cy="close-button"]').click(); //close User Preferences modal
     });
 
-    it('checks translation by selecting Spanish language', function() {
+    it('checks translation by selecting Spanish language', function () {
       cy.get('@userPreferencesGeneralTab')
         .click()
         .should('have.class', 'active');
@@ -278,7 +280,7 @@ describe('OHIF User Preferences', () => {
       //   .should('have.text', 'Preferencias');
     });
 
-    it('checks if user can cancel the language selection and application will be in English', function() {
+    it('checks if user can cancel the language selection and application will be in English', function () {
       cy.get('@userPreferencesGeneralTab')
         .click()
         .should('have.class', 'active');
@@ -356,7 +358,7 @@ describe('OHIF User Preferences', () => {
     //     .should('have.text', 'Preferences');
     //});
 
-    it('checks new hotkeys for "Rotate Right" and "Rotate Left"', function() {
+    it('checks new hotkeys for "Rotate Right" and "Rotate Left"', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab')
         .click()
@@ -387,7 +389,7 @@ describe('OHIF User Preferences', () => {
       cy.get('@viewportInfoMidTop').should('contains.text', 'A');
     });
 
-    it('checks new hotkeys for "Next" and "Previous" Image on Viewport', function() {
+    it('checks new hotkeys for "Next" and "Previous" Image on Viewport', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab')
         .click()
@@ -445,7 +447,7 @@ describe('OHIF User Preferences', () => {
       cy.setLayout(1, 1);
     });
 
-    it('checks error message when duplicated hotkeys are inserted', function() {
+    it('checks error message when duplicated hotkeys are inserted', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab').click();
 
@@ -472,7 +474,7 @@ describe('OHIF User Preferences', () => {
         .click();
     });
 
-    it('checks error message when invalid hotkey is inserted', function() {
+    it('checks error message when invalid hotkey is inserted', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab').click();
 
@@ -494,7 +496,7 @@ describe('OHIF User Preferences', () => {
         .click();
     });
 
-    it('checks error message when only modifier keys are inserted', function() {
+    it('checks error message when only modifier keys are inserted', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab').click();
 
@@ -534,7 +536,7 @@ describe('OHIF User Preferences', () => {
         .click();
     });
 
-    it('checks if user can cancel changes made on User Preferences Hotkeys tab', function() {
+    it('checks if user can cancel changes made on User Preferences Hotkeys tab', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab').click();
 
@@ -562,7 +564,7 @@ describe('OHIF User Preferences', () => {
       cy.get('[data-cy="close-button"]').click();
     });
 
-    it('checks if user can reset to default values on User Preferences Hotkeys tab', function() {
+    it('checks if user can reset to default values on User Preferences Hotkeys tab', function () {
       // Go go hotkeys tab
       cy.get('@userPreferencesHotkeysTab').click();
 
