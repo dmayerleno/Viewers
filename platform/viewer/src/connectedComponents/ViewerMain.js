@@ -4,10 +4,6 @@ import { Component } from 'react';
 import { ConnectedViewportGrid } from './../components/ViewportGrid/index.js';
 import PropTypes from 'prop-types';
 import React from 'react';
-import memoize from 'lodash/memoize';
-import _values from 'lodash/values';
-
-var values = memoize(_values);
 
 class ViewerMain extends Component {
   static propTypes = {
@@ -144,7 +140,9 @@ class ViewerMain extends Component {
 
   render() {
     const { viewportSpecificData } = this.props;
-    const viewportData = values(viewportSpecificData);
+    const viewportData = viewportSpecificData
+      ? Object.values(viewportSpecificData)
+      : [];
 
     return (
       <div className="ViewerMain">

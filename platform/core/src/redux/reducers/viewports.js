@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
-import produce from 'immer';
+import merge from 'lodash.merge';
 
 import {
   CLEAR_VIEWPORT,
@@ -93,13 +93,12 @@ const viewports = (state = DEFAULT_STATE, action) => {
      * @return {Object} New state.
      */
     case SET_VIEWPORT_ACTIVE: {
-      return produce(state, draftState => {
-        draftState.activeViewportIndex = getActiveViewportIndex(
-          draftState.numRows,
-          draftState.numColumns,
-          action.viewportIndex
-        );
-      });
+      const activeViewportIndex = getActiveViewportIndex(
+        state.numRows,
+        state.numColumns,
+        action.viewportIndex
+      );
+      return { ...state, activeViewportIndex };
     }
 
     /**
@@ -164,20 +163,21 @@ const viewports = (state = DEFAULT_STATE, action) => {
      * @return {Object} New state.
      */
     case SET_VIEWPORT: {
-      return produce(state, draftState => {
-        draftState.viewportSpecificData[action.viewportIndex] =
-          draftState.viewportSpecificData[action.viewportIndex] || {};
+      const layout = cloneDeep(state.layout);
 
-        Object.keys(action.viewportSpecificData).forEach(key => {
-          draftState.viewportSpecificData[action.viewportIndex][key] =
-            action.viewportSpecificData[key];
-        });
+      let viewportSpecificData = cloneDeep(state.viewportSpecificData);
+      viewportSpecificData[action.viewportIndex] = merge(
+        {},
+        viewportSpecificData[action.viewportIndex],
+        action.viewportSpecificData
+      );
 
-        if (action.viewportSpecificData && action.viewportSpecificData.plugin) {
-          draftState.layout.viewports[action.viewportIndex].plugin =
-            action.viewportSpecificData.plugin;
-        }
-      });
+      if (action.viewportSpecificData && action.viewportSpecificData.plugin) {
+        layout.viewports[action.viewportIndex].plugin =
+          action.viewportSpecificData.plugin;
+      }
+
+      return { ...state, layout, viewportSpecificData };
     }
 
     /**
